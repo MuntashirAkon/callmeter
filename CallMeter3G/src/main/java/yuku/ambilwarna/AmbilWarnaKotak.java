@@ -12,7 +12,7 @@ import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
 import android.view.View;
 
-import de.ub0r.android.callmeter.R;
+import io.github.muntashirakon.callmeter.R;
 
 public class AmbilWarnaKotak extends View {
 

@@ -15,152 +15,158 @@
 		copy of the GNU General Public License along with this program; If
 		not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="5dip">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <TextView
-            android:id="@android:id/text1"
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/plan_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:textStyle="bold"/>
+            android:text="@string/plan_"/>
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/plan"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/plan_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plan_"/>
-
-        <TextView
-                android:id="@+id/plan"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/rule_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rule_"/>
+
+        <TextView
+            android:id="@+id/rule"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/rule_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rule_"/>
-
-        <TextView
-                android:id="@+id/rule"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/remote_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="start"
+            android:text="@string/remote_"/>
+
+        <TextView
+            android:id="@+id/remote"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/remote_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="start"
-                android:text="@string/remote_"/>
-
-        <TextView
-                android:id="@+id/remote"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textIsSelectable="true"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mynumber_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_number_"/>
+
+        <TextView
+            android:id="@+id/mynumber"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/mynumber_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_number_"/>
-
-        <TextView
-                android:id="@+id/mynumber"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textIsSelectable="true" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/length_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/length_"/>
+
+        <TextView
+            android:id="@+id/length"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/length_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/length_"/>
-
-        <TextView
-                android:id="@+id/length"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:singleLine="true"/>
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/blength_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/blength_"/>
+
+        <TextView
+            android:id="@+id/blength"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/blength_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blength_"/>
-
-        <TextView
-                android:id="@+id/blength"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"/>
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cost_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cost_"/>
+
+        <TextView
+            android:id="@+id/cost"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <TextView
-                android:id="@+id/cost_"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cost_"/>
-
-        <TextView
-                android:id="@+id/cost"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
+            android:layout_gravity="end"
+            android:gravity="end"/>
     </LinearLayout>
 
 </LinearLayout>

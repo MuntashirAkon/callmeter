@@ -24,18 +24,10 @@
         android:layout_height="@dimen/title_view_hight"
         android:layout_gravity="center_horizontal"/>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ads"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:adSize="SMART_BANNER"
-        app:adUnitId="ca-app-pub-1948477123608376/3725600484" />
 
 </LinearLayout>

@@ -27,8 +27,8 @@
     <PreferenceScreen android:title="@string/textsize_">
         <intent
                 android:action="TEXTSIZE"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
     <CheckBoxPreference

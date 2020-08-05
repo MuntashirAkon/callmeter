@@ -28,8 +28,8 @@
             android:title="@string/import_rules_sd_">
         <intent
                 android:action="android.intent.action.MAIN"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesImport"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesImport"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
     <PreferenceCategory

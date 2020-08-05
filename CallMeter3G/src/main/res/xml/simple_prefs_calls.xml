@@ -17,7 +17,7 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <de.ub0r.android.callmeter.ui.prefs.BillModeListPreference
+    <io.github.muntashirakon.callmeter.ui.prefs.BillModeListPreference
             android:entries="@array/billmodes"
             android:entryValues="@array/billmodes"
             android:key="sp_billmode"
@@ -45,9 +45,9 @@
             android:title="@string/numbergroup_excalls">
         <intent
                 android:action="android.intent.action.VIEW"
-                android:data="content://de.ub0r.android.callmeter.provider/numbers/groups/1"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.NumberGroupEdit"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:data="content://io.github.muntashirakon.callmeter.provider/numbers/groups/1"
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.NumberGroupEdit"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
 </PreferenceScreen>

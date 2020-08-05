@@ -9,6 +9,7 @@ CallMeter3G/gradle.properties
 .idea
 .gradle
 *.iml
+*.DS_Store
 build
 release.*
 .bundle

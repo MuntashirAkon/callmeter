@@ -21,22 +21,22 @@
         <PreferenceScreen android:title="@string/appearance_">
             <intent
                     android:action="APPERANCE"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/behavior_">
             <intent
                     android:action="BEHAVIOR"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen
                 android:key="widgets"
                 android:title="@string/widgets_">
             <intent
                     android:action="WIDGETS"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/billing_">
@@ -46,34 +46,34 @@
                 android:title="@string/simple_preferences_">
             <intent
                     android:action="android.intent.action.MAIN"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.SimplePreferences"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.SimplePreferences"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/advanced_preferences_">
             <intent
                     android:action="ADVANCED"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/help_">
             <intent
                     android:action="android.intent.action.MAIN"
-                    android:targetClass="de.ub0r.android.callmeter.ui.HelpActivity"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.HelpActivity"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/import_rules_">
             <intent
                     android:action="IMPORT"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen
                 android:summary="@string/export_hint"
                 android:title="@string/export_">
             <intent
                     android:action="EXPORT"
-                    android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about_">
@@ -82,8 +82,8 @@
                 android:title="@string/about_">
             <intent
                     android:action="android.intent.action.MAIN"
-                    android:targetClass="de.ub0r.android.callmeter.ui.AboutActivity"
-                    android:targetPackage="de.ub0r.android.callmeter"/>
+                    android:targetClass="io.github.muntashirakon.callmeter.ui.AboutActivity"
+                    android:targetPackage="io.github.muntashirakon.callmeter"/>
         </PreferenceScreen>
         <PreferenceScreen
                 android:summary="@string/faq_hint"

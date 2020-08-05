@@ -23,8 +23,8 @@
             android:title="@string/alerts_">
         <intent
                 android:action="ALERT"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
     <CheckBoxPreference
@@ -73,8 +73,8 @@
     <PreferenceScreen android:title="@string/ask_for_plan_">
         <intent
                 android:action="ASK_FOR_PLAN"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.PreferencesPlain"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.PreferencesPlain"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
     <PreferenceScreen

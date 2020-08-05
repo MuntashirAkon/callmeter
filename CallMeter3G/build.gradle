@@ -1,19 +1,6 @@
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
-    }
-}
-
 apply plugin: 'com.android.application'
 
 repositories {
-    maven {
-        url 'https://raw.githubusercontent.com/felixb/mvn-repo/master'
-    }
     maven {
         url "https://jitpack.io"
     }
@@ -22,42 +9,27 @@ repositories {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
-        versionName "3.11.15"
-        versionCode 1403111500
-        buildConfigField 'boolean', 'DEBUG_LOG', 'true'
+        targetSdkVersion 29
+        versionName "0.9.0"
+        versionCode 90
+        applicationId 'io.github.muntashirakon.callmeter'
     }
 
     lintOptions {
-        // checkReleaseBuilds false
+         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
     }
 
-
-    signingConfigs {
-        release {
-            File releaseProps = new File("release.properties")
-            if (releaseProps.exists()) {
-                Properties props = new Properties()
-                props.load(new FileInputStream(releaseProps))
-
-                storeFile file("../release.ks")
-                storePassword props.getProperty("releaseKeystorePassword")
-                keyAlias "jarsign"
-                keyPassword props.getProperty("releaseKeyPassword")
-            }
-        }
-    }
-
     buildTypes {
         debug {
             versionNameSuffix "-debug"
+            buildConfigField 'boolean', 'DEBUG_LOG', 'true'
         }
 
         nologDebug {
@@ -70,44 +42,43 @@ android {
 
         logRelease {
             versionNameSuffix "-logRelease"
-            signingConfig signingConfigs.release
             minifyEnabled false
         }
 
         release {
-            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             minifyEnabled true
             buildConfigField 'boolean', 'DEBUG_LOG', 'false'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '30.0.0'
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.google.android.gms:play-services-ads:15.0.1'
-    implementation 'com.google.android.ads.consent:consent-library:1.0.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
-    implementation 'de.ub0r.android.lib:lib:1.1.1'
-    implementation 'de.ub0r.android.logg0r:logg0r:2.0.0'
 }
 
-task updateChangelog << {
+task updateChangelog {
     def proc = 'shell/update-changelog.sh'.execute()
     proc.in.eachLine {line -> println line}
     proc.err.eachLine {line -> println 'ERROR: ' + line}
     proc.waitFor()
 }
 
-task removeUnfinishedTranslations << {
+task removeUnfinishedTranslations {
     def proc = 'shell/remove-unfinished-translations.sh'.execute()
     proc.in.eachLine {line -> println line}
     proc.err.eachLine {line -> println 'ERROR: ' + line}
     proc.waitFor()
 }
 
-task readdUnfinishedTranslations << {
+task readdUnfinishedTranslations {
     def proc = "git checkout CallMeter3G/src/main/res/values-*/*xml".execute()
     proc.in.eachLine {line -> println line}
     proc.err.eachLine {line -> println 'ERROR: ' + line}

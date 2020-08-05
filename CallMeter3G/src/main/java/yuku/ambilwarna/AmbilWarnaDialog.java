@@ -2,7 +2,6 @@ package yuku.ambilwarna;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,8 +12,9 @@ import android.widget.AbsoluteLayout;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import de.ub0r.android.callmeter.R;
+import androidx.annotation.NonNull;
 import de.ub0r.android.logg0r.Log;
+import io.github.muntashirakon.callmeter.R;
 
 @SuppressWarnings("deprecation")
 public class AmbilWarnaDialog implements TextWatcher {
@@ -81,12 +81,12 @@ public class AmbilWarnaDialog implements TextWatcher {
 
         View view = LayoutInflater.from(context).inflate(R.layout.ambilwarna_dialog, null);
         this.viewHue = view.findViewById(R.id.ambilwarna_viewHue);
-        this.viewKotak = (AmbilWarnaKotak) view.findViewById(R.id.ambilwarna_viewKotak);
-        this.panah = (ImageView) view.findViewById(R.id.ambilwarna_panah);
+        this.viewKotak = view.findViewById(R.id.ambilwarna_viewKotak);
+        this.panah = view.findViewById(R.id.ambilwarna_panah);
         this.viewWarnaLama = view.findViewById(R.id.ambilwarna_warnaLama);
         this.viewWarnaBaru = view.findViewById(R.id.ambilwarna_warnaBaru);
-        this.viewKeker = (ImageView) view.findViewById(R.id.ambilwarna_keker);
-        this.viewEditText = (EditText) view.findViewById(R.id.ambilwarna_edittext);
+        this.viewKeker = view.findViewById(R.id.ambilwarna_keker);
+        this.viewEditText = view.findViewById(R.id.ambilwarna_edittext);
 
         this.letakkanPanah();
         this.letakkanKeker();
@@ -95,39 +95,36 @@ public class AmbilWarnaDialog implements TextWatcher {
         this.viewWarnaBaru.setBackgroundColor(color);
         this.updateEditText();
 
-        this.viewHue.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View v, final MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE
-                        || event.getAction() == MotionEvent.ACTION_DOWN
-                        || event.getAction() == MotionEvent.ACTION_UP) {
+        this.viewHue.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_MOVE
+                    || event.getAction() == MotionEvent.ACTION_DOWN
+                    || event.getAction() == MotionEvent.ACTION_UP) {
 
-                    float y = event.getY(); // dalam px, bukan dp
-                    if (y < 0.f) {
-                        y = 0.f;
-                    }
-                    if (y > AmbilWarnaDialog.this.ukuranUiPx) {
-                        y = AmbilWarnaDialog.this.ukuranUiPx - 0.001f;
-                    }
-
-                    AmbilWarnaDialog.this.hue = 360.f - 360.f / AmbilWarnaDialog.this.ukuranUiPx
-                            * y;
-                    if (AmbilWarnaDialog.this.hue == 360.f) {
-                        AmbilWarnaDialog.this.hue = 0.f;
-                    }
-
-                    AmbilWarnaDialog.this.warnaBaru = AmbilWarnaDialog.this.hitungWarna();
-                    // update view
-                    AmbilWarnaDialog.this.viewKotak.setHue(AmbilWarnaDialog.this.hue);
-                    AmbilWarnaDialog.this.letakkanPanah();
-                    AmbilWarnaDialog.this.viewWarnaBaru
-                            .setBackgroundColor(AmbilWarnaDialog.this.warnaBaru);
-                    AmbilWarnaDialog.this.updateEditText();
-
-                    return true;
+                float y = event.getY(); // dalam px, bukan dp
+                if (y < 0.f) {
+                    y = 0.f;
                 }
-                return false;
+                if (y > AmbilWarnaDialog.this.ukuranUiPx) {
+                    y = AmbilWarnaDialog.this.ukuranUiPx - 0.001f;
+                }
+
+                AmbilWarnaDialog.this.hue = 360.f - 360.f / AmbilWarnaDialog.this.ukuranUiPx
+                        * y;
+                if (AmbilWarnaDialog.this.hue == 360.f) {
+                    AmbilWarnaDialog.this.hue = 0.f;
+                }
+
+                AmbilWarnaDialog.this.warnaBaru = AmbilWarnaDialog.this.hitungWarna();
+                // update view
+                AmbilWarnaDialog.this.viewKotak.setHue(AmbilWarnaDialog.this.hue);
+                AmbilWarnaDialog.this.letakkanPanah();
+                AmbilWarnaDialog.this.viewWarnaBaru
+                        .setBackgroundColor(AmbilWarnaDialog.this.warnaBaru);
+                AmbilWarnaDialog.this.updateEditText();
+
+                return true;
             }
+            return false;
         });
         this.viewKotak.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -171,28 +168,19 @@ public class AmbilWarnaDialog implements TextWatcher {
 
         this.dialog = new AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        if (AmbilWarnaDialog.this.listener != null) {
-                            AmbilWarnaDialog.this.listener.onOk(AmbilWarnaDialog.this,
-                                    AmbilWarnaDialog.this.warnaBaru);
-                        }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    if (AmbilWarnaDialog.this.listener != null) {
+                        AmbilWarnaDialog.this.listener.onOk(AmbilWarnaDialog.this,
+                                AmbilWarnaDialog.this.warnaBaru);
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        if (AmbilWarnaDialog.this.listener != null) {
-                            AmbilWarnaDialog.this.listener.onCancel(AmbilWarnaDialog.this);
-                        }
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    if (AmbilWarnaDialog.this.listener != null) {
+                        AmbilWarnaDialog.this.listener.onCancel(AmbilWarnaDialog.this);
                     }
-                }).setNeutralButton(R.string.reset, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        if (AmbilWarnaDialog.this.listener != null) {
-                            AmbilWarnaDialog.this.listener.onReset(AmbilWarnaDialog.this);
-                        }
+                }).setNeutralButton(R.string.reset, (dialog, which) -> {
+                    if (AmbilWarnaDialog.this.listener != null) {
+                        AmbilWarnaDialog.this.listener.onReset(AmbilWarnaDialog.this);
                     }
                 }).create();
 
@@ -236,6 +224,7 @@ public class AmbilWarnaDialog implements TextWatcher {
         this.dialog.show();
     }
 
+    @NonNull
     public static String colorToString(final int color) {
         StringBuilder sb = new StringBuilder(9);
         sb.append("#");
@@ -275,8 +264,8 @@ public class AmbilWarnaDialog implements TextWatcher {
     }
 
     @Override
-    public void onTextChanged(final CharSequence s, final int start, final int before,
-            final int count) {
+    public void onTextChanged(@NonNull final CharSequence s, final int start, final int before,
+                              final int count) {
         String c = s.toString().toLowerCase();
         if (c.length() == 0) {
             this.viewEditText.setText("#");

@@ -33,9 +33,9 @@
             android:title="@string/numbergroup_exsms">
         <intent
                 android:action="android.intent.action.VIEW"
-                android:data="content://de.ub0r.android.callmeter.provider/numbers/groups/2"
-                android:targetClass="de.ub0r.android.callmeter.ui.prefs.NumberGroupEdit"
-                android:targetPackage="de.ub0r.android.callmeter"/>
+                android:data="content://io.github.muntashirakon.callmeter.provider/numbers/groups/2"
+                android:targetClass="io.github.muntashirakon.callmeter.ui.prefs.NumberGroupEdit"
+                android:targetPackage="io.github.muntashirakon.callmeter"/>
     </PreferenceScreen>
 
 </PreferenceScreen>
