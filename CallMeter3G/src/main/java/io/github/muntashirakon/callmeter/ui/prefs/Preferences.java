@@ -330,7 +330,7 @@ public final class Preferences extends PreferenceActivity implements OnPreferenc
         final SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
         final String s = p.getString(PREFS_THEME, THEME_LIGHT);
         if (THEME_BLACK.equals(s)) {
-            return R.style.Theme_CallMeter;
+            return R.style.Theme_CallMeter_Dark;
         } else {
             return R.style.Theme_CallMeter_Light;
         }

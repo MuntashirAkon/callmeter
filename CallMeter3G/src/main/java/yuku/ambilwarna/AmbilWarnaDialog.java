@@ -64,8 +64,8 @@ public class AmbilWarnaDialog implements TextWatcher {
 
     float ukuranUiPx; // diset di constructor
 
-    public AmbilWarnaDialog(final Context context, final int color,
-            final OnAmbilWarnaListener listener) {
+    public AmbilWarnaDialog(@NonNull final Context context, final int color,
+                            final OnAmbilWarnaListener listener) {
         this.listener = listener;
         this.warnaLama = color;
         this.warnaBaru = color;
@@ -126,43 +126,40 @@ public class AmbilWarnaDialog implements TextWatcher {
             }
             return false;
         });
-        this.viewKotak.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(final View v, final MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE
-                        || event.getAction() == MotionEvent.ACTION_DOWN
-                        || event.getAction() == MotionEvent.ACTION_UP) {
+        this.viewKotak.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_MOVE
+                    || event.getAction() == MotionEvent.ACTION_DOWN
+                    || event.getAction() == MotionEvent.ACTION_UP) {
 
-                    float x = event.getX(); // dalam px, bukan dp
-                    float y = event.getY(); // dalam px, bukan dp
+                float x = event.getX(); // dalam px, bukan dp
+                float y = event.getY(); // dalam px, bukan dp
 
-                    if (x < 0.f) {
-                        x = 0.f;
-                    }
-                    if (x > AmbilWarnaDialog.this.ukuranUiPx) {
-                        x = AmbilWarnaDialog.this.ukuranUiPx;
-                    }
-                    if (y < 0.f) {
-                        y = 0.f;
-                    }
-                    if (y > AmbilWarnaDialog.this.ukuranUiPx) {
-                        y = AmbilWarnaDialog.this.ukuranUiPx;
-                    }
-
-                    AmbilWarnaDialog.this.sat = (1.f / AmbilWarnaDialog.this.ukuranUiPx * x);
-                    AmbilWarnaDialog.this.val = 1.f - (1.f / AmbilWarnaDialog.this.ukuranUiPx * y);
-
-                    AmbilWarnaDialog.this.warnaBaru = AmbilWarnaDialog.this.hitungWarna();
-                    // update view
-                    AmbilWarnaDialog.this.letakkanKeker();
-                    AmbilWarnaDialog.this.viewWarnaBaru
-                            .setBackgroundColor(AmbilWarnaDialog.this.warnaBaru);
-                    AmbilWarnaDialog.this.updateEditText();
-
-                    return true;
+                if (x < 0.f) {
+                    x = 0.f;
                 }
-                return false;
+                if (x > AmbilWarnaDialog.this.ukuranUiPx) {
+                    x = AmbilWarnaDialog.this.ukuranUiPx;
+                }
+                if (y < 0.f) {
+                    y = 0.f;
+                }
+                if (y > AmbilWarnaDialog.this.ukuranUiPx) {
+                    y = AmbilWarnaDialog.this.ukuranUiPx;
+                }
+
+                AmbilWarnaDialog.this.sat = (1.f / AmbilWarnaDialog.this.ukuranUiPx * x);
+                AmbilWarnaDialog.this.val = 1.f - (1.f / AmbilWarnaDialog.this.ukuranUiPx * y);
+
+                AmbilWarnaDialog.this.warnaBaru = AmbilWarnaDialog.this.hitungWarna();
+                // update view
+                AmbilWarnaDialog.this.letakkanKeker();
+                AmbilWarnaDialog.this.viewWarnaBaru
+                        .setBackgroundColor(AmbilWarnaDialog.this.warnaBaru);
+                AmbilWarnaDialog.this.updateEditText();
+
+                return true;
             }
+            return false;
         });
         this.viewEditText.addTextChangedListener(this);
 

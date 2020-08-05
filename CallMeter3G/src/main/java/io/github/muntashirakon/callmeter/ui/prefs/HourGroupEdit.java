@@ -240,7 +240,7 @@ public final class HourGroupEdit extends PreferenceActivity implements OnPrefere
      */
     private void showHourDialog(final long nid) {
         final Builder builder = new Builder(this);
-        final View v = View.inflate(this, R.layout.prefs_hourgroup_dialog, null);
+        final View v = View.inflate(this, R.layout.dialog_prefs_hourgroup, null);
         final Spinner spDays = v.findViewById(R.id.days);
         final Spinner spHours = v.findViewById(R.id.hours);
         if (nid >= 0) {

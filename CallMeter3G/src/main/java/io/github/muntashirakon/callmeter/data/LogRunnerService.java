@@ -51,9 +51,9 @@ import java.util.HashMap;
 
 import io.github.muntashirakon.callmeter.BuildConfig;
 import io.github.muntashirakon.callmeter.CallMeter;
-import io.github.muntashirakon.callmeter.ui.AskForPlan;
+import io.github.muntashirakon.callmeter.ui.AskForPlanActivity;
 import io.github.muntashirakon.callmeter.ui.Common;
-import io.github.muntashirakon.callmeter.ui.Plans;
+import io.github.muntashirakon.callmeter.ui.PlansActivity;
 import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
 import io.github.muntashirakon.callmeter.widget.LogsAppWidgetProvider;
 import io.github.muntashirakon.callmeter.widget.StatsAppWidgetProvider;
@@ -923,9 +923,9 @@ public final class LogRunnerService extends JobIntentService {
 
         acquire(a);
 
-        final Handler h = Plans.getHandler();
+        final Handler h = PlansActivity.getHandler();
         if (h != null) {
-            h.sendEmptyMessage(Plans.MSG_BACKGROUND_START_MATCHER);
+            h.sendEmptyMessage(PlansActivity.MSG_BACKGROUND_START_MATCHER);
         }
 
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
@@ -977,7 +977,7 @@ public final class LogRunnerService extends JobIntentService {
                 }
                 c1.close();
                 if (showDialog) {
-                    h.sendEmptyMessage(Plans.MSG_BACKGROUND_START_RUNNER);
+                    h.sendEmptyMessage(PlansActivity.MSG_BACKGROUND_START_RUNNER);
                 }
             }
             c.close();
@@ -1004,7 +1004,7 @@ public final class LogRunnerService extends JobIntentService {
         }
 
         if (showDialog) {
-            h.sendEmptyMessage(Plans.MSG_BACKGROUND_STOP_RUNNER);
+            h.sendEmptyMessage(PlansActivity.MSG_BACKGROUND_STOP_RUNNER);
         }
 
         if ((showCallInfo || askForPlan) && a != null
@@ -1036,11 +1036,11 @@ public final class LogRunnerService extends JobIntentService {
                         post(() -> {
                             Log.i(TAG, "launching ask for plan dialog");
                             final Intent i = new Intent(LogRunnerService.this,
-                                    AskForPlan.class);
+                                    AskForPlanActivity.class);
                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.putExtra(AskForPlan.EXTRA_ID, id);
-                            i.putExtra(AskForPlan.EXTRA_DATE, date);
-                            i.putExtra(AskForPlan.EXTRA_AMOUNT, amount);
+                            i.putExtra(AskForPlanActivity.EXTRA_ID, id);
+                            i.putExtra(AskForPlanActivity.EXTRA_DATE, date);
+                            i.putExtra(AskForPlanActivity.EXTRA_AMOUNT, amount);
                             LogRunnerService.this.startActivity(i);
                         });
                     }
@@ -1110,7 +1110,7 @@ public final class LogRunnerService extends JobIntentService {
             LogRunnerReceiver.schedNext(this, a);
         }
         if (h != null) {
-            h.sendEmptyMessage(Plans.MSG_BACKGROUND_STOP_MATCHER);
+            h.sendEmptyMessage(PlansActivity.MSG_BACKGROUND_STOP_MATCHER);
         }
         Log.i(TAG, "wakelock released");
     }

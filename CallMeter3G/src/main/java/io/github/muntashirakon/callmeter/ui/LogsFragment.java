@@ -171,7 +171,7 @@ public final class LogsFragment extends ListFragment implements OnClickListener,
          * @param context {@link Context}
          */
         public LogAdapter(final Context context) {
-            super(context, R.layout.logs_item, null, true);
+            super(context, R.layout.item_log, null, true);
         }
 
         /**
@@ -333,7 +333,7 @@ public final class LogsFragment extends ListFragment implements OnClickListener,
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.logs, container, false);
+        View v = inflater.inflate(R.layout.fragment_logs, container, false);
         tbCall = v.findViewById(R.id.calls);
         tbCall.setOnClickListener(this);
         tbSMS = v.findViewById(R.id.sms);
@@ -562,7 +562,7 @@ public final class LogsFragment extends ListFragment implements OnClickListener,
     public void onLoadFinished(@NonNull final Loader<Cursor> loader, final Cursor data) {
         Log.d(TAG, "onLoadFinished()");
         ((LogAdapter) requireListAdapter()).swapCursor(data);
-        Plans activity = (Plans) getActivity();
+        PlansActivity activity = (PlansActivity) getActivity();
         if (activity != null) {
             activity.setProgress(-1);
         }

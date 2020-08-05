@@ -46,7 +46,7 @@ import java.util.HashSet;
 
 import io.github.muntashirakon.callmeter.CallMeter;
 import io.github.muntashirakon.callmeter.R;
-import io.github.muntashirakon.callmeter.ui.Plans;
+import io.github.muntashirakon.callmeter.ui.PlansActivity;
 import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
 import de.ub0r.android.lib.Utils;
 import de.ub0r.android.logg0r.Log;
@@ -1500,9 +1500,9 @@ public final class RuleMatcher {
             final int l = cursor.getCount();
             Handler h;
             if (showStatus) {
-                h = Plans.getHandler();
+                h = PlansActivity.getHandler();
                 if (h != null) {
-                    final Message m = h.obtainMessage(Plans.MSG_BACKGROUND_PROGRESS_MATCHER);
+                    final Message m = h.obtainMessage(PlansActivity.MSG_BACKGROUND_PROGRESS_MATCHER);
                     m.arg1 = 0;
                     m.arg2 = l;
                     m.sendToTarget();
@@ -1514,10 +1514,10 @@ public final class RuleMatcher {
                 do {
                     ret |= matchLog(cr, ops, cursor);
                     if (i % PROGRESS_STEPS == 0 || (i < PROGRESS_STEPS && i % CallMeter.TEN == 0)) {
-                        h = Plans.getHandler();
+                        h = PlansActivity.getHandler();
                         if (h != null) {
                             final Message m = h
-                                    .obtainMessage(Plans.MSG_BACKGROUND_PROGRESS_MATCHER);
+                                    .obtainMessage(PlansActivity.MSG_BACKGROUND_PROGRESS_MATCHER);
                             m.arg1 = i;
                             m.arg2 = l;
                             Log.d(TAG, "send progress: ", i, "/", l);
@@ -1600,7 +1600,7 @@ public final class RuleMatcher {
                     b.setWhen(now);
                     b.setContentTitle(context.getString(R.string.alerts_title));
                     b.setContentText(t);
-                    Intent i = new Intent(context, Plans.class);
+                    Intent i = new Intent(context, PlansActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     b.setContentIntent(PendingIntent.getActivity(

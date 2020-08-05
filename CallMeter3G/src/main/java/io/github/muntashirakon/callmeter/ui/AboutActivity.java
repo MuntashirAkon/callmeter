@@ -41,9 +41,9 @@ public final class AboutActivity extends AppCompatActivity {
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.about);
+        setContentView(R.layout.activity_about);
         setTitle(getString(R.string.about_) + " " + getString(R.string.app_name));
-        Objects.requireNonNull(getSupportActionBar()).setSubtitle("v" + BuildConfig.VERSION_NAME);
+//        Objects.requireNonNull(getSupportActionBar()).setSubtitle("v" + BuildConfig.VERSION_NAME);  // FIXME
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009-2013 Felix Bechstein
- * 
+ * Copyright (C) 2020 Muntashir Al-Islam
+ *
  * This file is part of Call Meter 3G.
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -25,9 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,14 +35,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,26 +50,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+import de.ub0r.android.lib.Utils;
+import de.ub0r.android.logg0r.Log;
 import io.github.muntashirakon.callmeter.CallMeter;
 import io.github.muntashirakon.callmeter.R;
 import io.github.muntashirakon.callmeter.data.DataProvider;
 import io.github.muntashirakon.callmeter.data.LogRunnerReceiver;
 import io.github.muntashirakon.callmeter.data.LogRunnerService;
 import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
-import de.ub0r.android.lib.Utils;
-import de.ub0r.android.logg0r.Log;
 
 /**
  * Callmeter's Main Activity
  *
  * @author flx
  */
-public final class Plans extends AppCompatActivity implements OnPageChangeListener {
+public final class PlansActivity extends AppCompatActivity implements OnPageChangeListener {
 
     /**
      * Tag for output.
      */
-    private static final String TAG = "Plans";
+    private static final String TAG = "PlansActivity";
 
     /**
      * {@link Message} for {@link Handler}: start background: LogMatcher.
@@ -319,28 +312,31 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
         setTheme(Preferences.getTheme(this));
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.plans);
+        setContentView(R.layout.activity_plans);
+        setSupportActionBar(findViewById(R.id.toolbar));
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
 
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
         if (p.getAll().isEmpty()) {
-            // show intro
-            startActivity(new Intent(this, IntroActivity.class));
-            // set date of recordings to beginning of last month
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.intro_)
+                    .setView(R.layout.dialog_intro)
+                    .setNegativeButton(android.R.string.ok, null)
+                    .show();
+            // Set date of recordings to beginning of last month
             Calendar c = Calendar.getInstance();
             c.set(Calendar.DAY_OF_MONTH, 0);
             c.add(Calendar.MONTH, -1);
-            Log.i(TAG, "set date of recording: " + c);
+            Log.i(TAG, "Set date of recording: " + c);
             p.edit().putLong(Preferences.PREFS_DATE_BEGIN, c.getTimeInMillis()).apply();
         }
-
         pager = findViewById(R.id.pager);
         initAdapter();
         handler = new MessageHandler(this);
     }
 
     private void initAdapter() {
-        // request permissions before doing any real work
+        // Request permissions before doing any real work
         if (!CallMeter.requestPermission(this, Manifest.permission.READ_CALL_LOG,
                 PERMISSION_REQUEST_READ_CALL_LOG, R.string.permissions_read_call_log,
                 (dialogInterface, i) -> finish())) {
@@ -352,7 +348,7 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
             return;
         }
 
-        // request semi optional permission
+        // Request semi optional permission
         CallMeter.requestPermission(this, Manifest.permission.READ_CONTACTS,
                 PERMISSION_REQUEST_READ_CONTACTS, R.string.permissions_read_contacts, null);
 
@@ -361,39 +357,8 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
         pager.setCurrentItem(fadapter.getHomeFragmentPos());
         pager.addOnPageChangeListener(this);
 
-        MagicIndicator magicIndicator = findViewById(R.id.titles);
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return fadapter.getCount();
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(final Context context, final int i) {
-                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-
-                TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorPrimary, android.R.attr.textColorSecondary});
-                try {
-                    colorTransitionPagerTitleView.setNormalColor(a.getColor(1, Color.GRAY));
-                    colorTransitionPagerTitleView.setSelectedColor(a.getColor(0, Color.BLACK));
-                } finally {
-                    a.recycle();
-                }
-                colorTransitionPagerTitleView.setText(fadapter.getPageTitle(i));
-                colorTransitionPagerTitleView.setOnClickListener(view -> pager.setCurrentItem(i));
-                return colorTransitionPagerTitleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(final Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_MATCH_EDGE);
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(magicIndicator, pager);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(pager);
     }
 
     /**
@@ -565,7 +530,7 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
     }
 
     static class MessageHandler extends Handler {
-        Plans plans;
+        PlansActivity plansActivity;
         /** LogRunner running in background? */
         private boolean inProgressRunner = false;
 
@@ -578,8 +543,8 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
         /** String for recalculate message. */
         private String recalc = null;
 
-        MessageHandler(Plans plans) {
-            this.plans = plans;
+        MessageHandler(PlansActivity plansActivity) {
+            this.plansActivity = plansActivity;
         }
 
         @Override
@@ -590,35 +555,35 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
                     inProgressRunner = true;
                 case MSG_BACKGROUND_START_MATCHER:
                     statusMatcherProgress = false;
-                    plans.setInProgress(1);
+                    plansActivity.setInProgress(1);
                     break;
                 case MSG_BACKGROUND_STOP_RUNNER:
                     inProgressRunner = false;
-                    plans.setInProgress(-1);
-                    Objects.requireNonNull(plans.getSupportActionBar()).setSubtitle(null);
+                    plansActivity.setInProgress(-1);
+                    Objects.requireNonNull(plansActivity.getSupportActionBar()).setSubtitle(null);
                     break;
                 case MSG_BACKGROUND_STOP_MATCHER:
-                    plans.setInProgress(-1);
-                    Objects.requireNonNull(plans.getSupportActionBar()).setSubtitle(null);
-                    Fragment f = plans.fadapter.getActiveFragment(plans.pager,
-                            plans.fadapter.getHomeFragmentPos());
+                    plansActivity.setInProgress(-1);
+                    Objects.requireNonNull(plansActivity.getSupportActionBar()).setSubtitle(null);
+                    Fragment f = plansActivity.fadapter.getActiveFragment(plansActivity.pager,
+                            plansActivity.fadapter.getHomeFragmentPos());
                     if (f instanceof PlansFragment) {
                         ((PlansFragment) f).requery(true);
                     }
                     break;
                 case MSG_BACKGROUND_PROGRESS_MATCHER:
-                    if (plans.progressCount == 0) {
-                        plans.setProgress(1);
+                    if (plansActivity.progressCount == 0) {
+                        plansActivity.setProgress(1);
                     }
                     if (statusMatcher == null
                             || (!this.statusMatcherProgress || statusMatcher.isShowing())) {
                         Log.d(TAG, "matcher progress: ", msg.arg1);
                         if (statusMatcher == null || !this.statusMatcherProgress) {
                             final ProgressDialog dold = statusMatcher;
-                            statusMatcher = new ProgressDialog(plans);
+                            statusMatcher = new ProgressDialog(plansActivity);
                             statusMatcher.setCancelable(true);
                             if (recalc == null) {
-                                recalc = plans.getString(R.string.reset_data_progr2);
+                                recalc = plansActivity.getString(R.string.reset_data_progr2);
                             }
                             statusMatcher.setMessage(recalc);
                             statusMatcher.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -638,9 +603,9 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
                         statusMatcher.setProgress(msg.arg1);
                     }
                     if (recalc == null) {
-                        recalc = plans.getString(R.string.reset_data_progr2);
+                        recalc = plansActivity.getString(R.string.reset_data_progr2);
                     }
-                    Objects.requireNonNull(plans.getSupportActionBar()).setSubtitle(recalc + " "
+                    Objects.requireNonNull(plansActivity.getSupportActionBar()).setSubtitle(recalc + " "
                             + msg.arg1 + "/" + msg.arg2);
                     break;
                 default:
@@ -650,9 +615,9 @@ public final class Plans extends AppCompatActivity implements OnPageChangeListen
             if (inProgressRunner) {
                 if (statusMatcher == null
                         || (msg.arg1 <= 0 && !this.statusMatcher.isShowing())) {
-                    statusMatcher = new ProgressDialog(plans);
+                    statusMatcher = new ProgressDialog(plansActivity);
                     statusMatcher.setCancelable(true);
-                    statusMatcher.setMessage(plans.getString(R.string.reset_data_progr1));
+                    statusMatcher.setMessage(plansActivity.getString(R.string.reset_data_progr1));
                     statusMatcher.setIndeterminate(true);
                     statusMatcherProgress = false;
                     try {

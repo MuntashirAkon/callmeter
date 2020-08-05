@@ -42,7 +42,7 @@ import io.github.muntashirakon.callmeter.data.DataProvider;
 import io.github.muntashirakon.callmeter.data.DataProvider.Plans.Plan;
 import io.github.muntashirakon.callmeter.data.LogRunnerService;
 import io.github.muntashirakon.callmeter.ui.Common;
-import io.github.muntashirakon.callmeter.ui.Plans;
+import io.github.muntashirakon.callmeter.ui.PlansActivity;
 import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
 import de.ub0r.android.lib.Utils;
 import de.ub0r.android.logg0r.Log;
@@ -325,7 +325,7 @@ public final class StatsAppWidgetProvider extends AppWidgetProvider {
         views.setTextColor(R.id.plan, textColor);
         views.setTextColor(R.id.stats, textColor);
         views.setOnClickPendingIntent(R.id.widget,
-                PendingIntent.getActivity(context, 0, new Intent(context, Plans.class), 0));
+                PendingIntent.getActivity(context, 0, new Intent(context, PlansActivity.class), 0));
         if (showIcon) {
             views.setViewVisibility(R.id.widget_icon, View.VISIBLE);
             switch (plan.type) {

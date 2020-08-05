@@ -41,7 +41,7 @@ public final class HelpActivity extends AppCompatActivity implements OnClickList
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.help);
+        setContentView(R.layout.activity_help);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         findViewById(R.id.ok).setOnClickListener(this);
     }

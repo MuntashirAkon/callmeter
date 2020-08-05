@@ -205,7 +205,7 @@ public final class CV2EditTextPreference extends EditTextPreference {
             return super.onCreateDialogView();
         } else {
             @SuppressLint("InflateParams")
-            View v = LayoutInflater.from(getContext()).inflate(R.layout.doubleedit, null);
+            View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_doubleedit, null);
             et1 = v.findViewById(android.R.id.text1);
             et2 = v.findViewById(android.R.id.text2);
             et1.setText(getText());

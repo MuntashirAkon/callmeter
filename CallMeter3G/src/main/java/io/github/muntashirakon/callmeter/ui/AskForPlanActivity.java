@@ -19,7 +19,6 @@
  */
 package io.github.muntashirakon.callmeter.ui;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -38,25 +37,27 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import androidx.appcompat.app.AppCompatActivity;
+import de.ub0r.android.lib.Utils;
+import de.ub0r.android.logg0r.Log;
 import io.github.muntashirakon.callmeter.CallMeter;
 import io.github.muntashirakon.callmeter.R;
 import io.github.muntashirakon.callmeter.data.DataProvider;
 import io.github.muntashirakon.callmeter.data.RuleMatcher;
 import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
-import de.ub0r.android.lib.Utils;
-import de.ub0r.android.logg0r.Log;
 
 /**
- * Display Ask for plan {@link Activity}.
+ * Display Ask for plan.
  *
  * @author flx
  */
-public final class AskForPlan extends Activity implements OnClickListener, OnDismissListener {
+public final class AskForPlanActivity extends AppCompatActivity
+        implements OnClickListener, OnDismissListener {
 
     /**
      * Tag for output.
      */
-    private static final String TAG = "AskForPlan";
+    private static final String TAG = "AskForPlanActivity";
 
     /**
      * Extra providing id of call.
@@ -74,7 +75,7 @@ public final class AskForPlan extends Activity implements OnClickListener, OnDis
     public static final String EXTRA_AMOUNT = "amount";
 
     /**
-     * Ids of plans' {@link Button}s.
+     * Ids of plansActivity' {@link Button}s.
      */
     private static final int[] PLAN_BTNS = new int[]{R.id.btn00, R.id.btn01, R.id.btn02,
             R.id.btn03, R.id.btn04, R.id.btn05, R.id.btn06, R.id.btn07, R.id.btn08, R.id.btn09,
@@ -82,12 +83,12 @@ public final class AskForPlan extends Activity implements OnClickListener, OnDis
             R.id.btn17, R.id.btn18, R.id.btn19};
 
     /**
-     * Maximal number of plans.
+     * Maximal number of plansActivity.
      */
     private static final int MAX_PLANS = PLAN_BTNS.length;
 
     /**
-     * Ids of plans.
+     * Ids of plansActivity.
      */
     private final int[] planIds = new int[MAX_PLANS];
 
@@ -130,7 +131,7 @@ public final class AskForPlan extends Activity implements OnClickListener, OnDis
         Utils.setLocale(this);
         d = new Dialog(this);
         d.setTitle(R.string.select_plan_);
-        d.setContentView(R.layout.ask_for_plan);
+        d.setContentView(R.layout.activity_ask_for_plan);
         d.setCancelable(true);
         d.setOnDismissListener(this);
 
@@ -150,7 +151,7 @@ public final class AskForPlan extends Activity implements OnClickListener, OnDis
                 DataProvider.Plans.PROJECTION,
                 DataProvider.Plans.TYPE + " = " + DataProvider.TYPE_CALL, null, null);
         if (c == null || !c.moveToFirst()) {
-            Log.e(TAG, "no plans: " + c);
+            Log.e(TAG, "no plansActivity: " + c);
             if (c != null && !c.isClosed()) {
                 c.close();
             }
@@ -253,10 +254,10 @@ public final class AskForPlan extends Activity implements OnClickListener, OnDis
     }
 
     static class TimeoutTask extends AsyncTask<Void, Void, Void> {
-        private WeakReference<AskForPlan> context;
+        private WeakReference<AskForPlanActivity> context;
         private int count;
 
-        TimeoutTask(AskForPlan context, int timeout) {
+        TimeoutTask(AskForPlanActivity context, int timeout) {
             this.context = new WeakReference<>(context);
             count = timeout;
         }

@@ -66,7 +66,7 @@ import io.github.muntashirakon.callmeter.ui.prefs.Preferences;
 import de.ub0r.android.logg0r.Log;
 
 /**
- * Show plans.
+ * Show plansActivity.
  *
  * @author flx
  */
@@ -94,12 +94,12 @@ public final class PlansFragment extends ListFragment implements OnClickListener
     private static boolean showTotal = true;
 
     /**
-     * Hide zero plans.
+     * Hide zero plansActivity.
      */
     private static boolean hideZero = false;
 
     /**
-     * Hide no cost plans.
+     * Hide no cost plansActivity.
      */
     private static boolean hideNoCost = false;
 
@@ -114,7 +114,7 @@ public final class PlansFragment extends ListFragment implements OnClickListener
     private static final int UID_DUMMY = -3;
 
     /**
-     * Adapter binding plans to View.
+     * Adapter binding plansActivity to View.
      *
      * @author flx
      */
@@ -243,7 +243,7 @@ public final class PlansFragment extends ListFragment implements OnClickListener
          * @param n       now
          */
         public PlansAdapter(final Activity context, final long n) {
-            super(context, R.layout.plans_item, null, true);
+            super(context, R.layout.item_plan, null, true);
             now = n;
             p = PreferenceManager.getDefaultSharedPreferences(context);
             e = p.edit();
@@ -554,7 +554,7 @@ public final class PlansFragment extends ListFragment implements OnClickListener
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.plans_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_plans, container, false);
         vLoading = v.findViewById(R.id.loading);
         vImport = v.findViewById(R.id.import_default);
         vImport.setOnClickListener(this);
@@ -599,12 +599,12 @@ public final class PlansFragment extends ListFragment implements OnClickListener
     private synchronized void setInProgress(final int add) {
         Log.d(TAG, "setInProgress(", add, ")");
         if (add == 0) {
-            ((Plans) requireActivity()).setInProgress(add);
+            ((PlansActivity) requireActivity()).setInProgress(add);
         } else if (add > 0 && !this.inProgress) {
-            ((Plans) requireActivity()).setInProgress(add);
+            ((PlansActivity) requireActivity()).setInProgress(add);
             inProgress = true;
         } else if (add < 0) {
-            ((Plans) requireActivity()).setInProgress(add);
+            ((PlansActivity) requireActivity()).setInProgress(add);
             inProgress = false;
         }
     }
@@ -666,7 +666,7 @@ public final class PlansFragment extends ListFragment implements OnClickListener
                             PlansFragment.this.requireActivity().startActivity(intent);
                             break;
                         case 1:
-                            ((Plans) PlansFragment.this.requireActivity()).showLogsFragment(id);
+                            ((PlansActivity) PlansFragment.this.requireActivity()).showLogsFragment(id);
                             break;
                         default:
                             break;
@@ -732,7 +732,7 @@ public final class PlansFragment extends ListFragment implements OnClickListener
                     PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
                             .putString("dummy_where", sb.toString()).apply();
                 } catch (IllegalStateException ex) {
-                    Log.e(TAG, "could not walk through cursor to save shown plans", ex);
+                    Log.e(TAG, "could not walk through cursor to save shown plansActivity", ex);
                 }
             }
             vImport.setVisibility(View.GONE);

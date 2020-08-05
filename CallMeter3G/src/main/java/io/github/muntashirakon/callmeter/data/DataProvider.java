@@ -822,7 +822,7 @@ public final class DataProvider extends ContentProvider {
     }
 
     /**
-     * Plans.
+     * PlansActivity.
      *
      * @author flx
      */
@@ -849,12 +849,12 @@ public final class DataProvider extends ContentProvider {
             public final int type;
 
             /**
-             * Plans's name.
+             * PlansActivity's name.
              */
             public final String name;
 
             /**
-             * Plans's short name.
+             * PlansActivity's short name.
              */
             public final String sname;
 

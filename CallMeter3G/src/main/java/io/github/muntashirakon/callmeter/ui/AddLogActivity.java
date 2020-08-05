@@ -92,7 +92,7 @@ public final class AddLogActivity extends AppCompatActivity implements OnClickLi
         setTheme(Preferences.getTheme(this));
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.logs_add);
+        setContentView(R.layout.activity_add_log);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.add_log);
