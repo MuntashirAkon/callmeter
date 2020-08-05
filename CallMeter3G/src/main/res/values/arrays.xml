@@ -32,8 +32,9 @@
         <item>$te $tb $tY</item>
     </string-array>
     <string-array name="themes_values" translatable="false">
-        <item>black</item>
+        <item>dark</item>
         <item>light</item>
+        <item>system</item>
     </string-array>
     <string-array name="textsize_values" translatable="false">
         <item>small</item>
@@ -130,8 +131,9 @@
         <item>@string/day_23</item>
     </string-array>
     <string-array name="themes" translatable="false">
-        <item>@string/theme_black</item>
+        <item>@string/theme_dark</item>
         <item>@string/theme_light</item>
+        <item>@string/theme_system</item>
     </string-array>
     <string-array name="dialog_edit_plan" translatable="false">
         <item>@string/edit_plan_</item>

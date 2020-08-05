@@ -381,8 +381,9 @@
     <string formatted="false" name="day_21">21:00 - 21:59</string>
     <string formatted="false" name="day_22">22:00 - 22:59</string>
     <string formatted="false" name="day_23">23:00 - 23:59</string>
-    <string formatted="false" name="theme_black">Black</string>
+    <string formatted="false" name="theme_dark">Dark</string>
     <string formatted="false" name="theme_light">Light</string>
+    <string formatted="false" name="theme_system">System</string>
     <string formatted="false" name="edit_plan_">Edit Plan</string>
     <string formatted="false" name="view_logs_">View Logs</string>
     <string formatted="false" name="title">Title</string>

@@ -89,7 +89,6 @@ public final class AddLogActivity extends AppCompatActivity implements OnClickLi
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        setTheme(Preferences.getTheme(this));
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_log);

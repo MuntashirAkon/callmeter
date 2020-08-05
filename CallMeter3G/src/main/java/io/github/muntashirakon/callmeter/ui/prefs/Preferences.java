@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009-2013 Felix Bechstein
- * 
+ * Copyright (C) 2020 Muntashir Al-Islam
+ *
  * This file is part of Call Meter 3G.
  * 
  * This program is free software; you can redistribute it and/or modify it under
@@ -154,14 +155,19 @@ public final class Preferences extends PreferenceActivity implements OnPreferenc
     private static final String PREFS_THEME = "theme";
 
     /**
-     * Theme: black.
+     * Theme: dark.
      */
-    private static final String THEME_BLACK = "black";
+    public static final String THEME_DARK = "dark";
 
     /**
      * Theme: light.
      */
-    private static final String THEME_LIGHT = "light";
+    public static final String THEME_LIGHT = "light";
+
+    /**
+     * Theme: system.
+     */
+    public static final String THEME_SYSTEM = "system";
 
     /**
      * Preference's name: text size.
@@ -326,14 +332,9 @@ public final class Preferences extends PreferenceActivity implements OnPreferenc
      * @param context {@link Context}
      * @return theme
      */
-    public static int getTheme(final Context context) {
+    public static String getTheme(final Context context) {
         final SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
-        final String s = p.getString(PREFS_THEME, THEME_LIGHT);
-        if (THEME_BLACK.equals(s)) {
-            return R.style.Theme_CallMeter_Dark;
-        } else {
-            return R.style.Theme_CallMeter_Light;
-        }
+        return p.getString(PREFS_THEME, THEME_LIGHT);
     }
 
     /**

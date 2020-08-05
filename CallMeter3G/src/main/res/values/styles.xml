@@ -51,7 +51,7 @@
         <item name="ubButtonBarBackground">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.CallMeter.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.CallMeter" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:actionBarStyle" tools:ignore="NewApi">@style/Widget.Styled.ActionBar</item>
         <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="ubButtonBarBackground">@color/ubActionBarBackgroundDark</item>

@@ -45,6 +45,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -113,7 +114,7 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
     /**
      * {@link PlansFragmentAdapter}.
      */
-    private PlansFragmentAdapter fadapter;
+    private PlansFragmentAdapter adapter;
 
     /**
      * {@link Handler} for handling messages from background process.
@@ -309,7 +310,17 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setTheme(Preferences.getTheme(this));
+        String theme = Preferences.getTheme(this);
+        switch (theme) {
+            case Preferences.THEME_DARK:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case Preferences.THEME_LIGHT:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
         Utils.setLocale(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plans);
@@ -352,9 +363,9 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
         CallMeter.requestPermission(this, Manifest.permission.READ_CONTACTS,
                 PERMISSION_REQUEST_READ_CONTACTS, R.string.permissions_read_contacts, null);
 
-        fadapter = new PlansFragmentAdapter(this, getSupportFragmentManager());
-        pager.setAdapter(fadapter);
-        pager.setCurrentItem(fadapter.getHomeFragmentPos());
+        adapter = new PlansFragmentAdapter(this, getSupportFragmentManager());
+        pager.setAdapter(adapter);
+        pager.setCurrentItem(adapter.getHomeFragmentPos());
         pager.addOnPageChangeListener(this);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -450,9 +461,9 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
                 showLogsFragment(-1L);
                 return true;
             case android.R.id.home:
-                pager.setCurrentItem(fadapter.getHomeFragmentPos(), true);
-                Fragment f = fadapter.getActiveFragment(pager,
-                        fadapter.getLogsFragmentPos());
+                pager.setCurrentItem(adapter.getHomeFragmentPos(), true);
+                Fragment f = adapter.getActiveFragment(pager,
+                        adapter.getLogsFragmentPos());
                 if (f instanceof LogsFragment) {
                     ((LogsFragment) f).setPlanId(-1L);
                 }
@@ -466,8 +477,8 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
      * {@inheritDoc}
      */
     public void showLogsFragment(final long planId) {
-        int p = fadapter.getLogsFragmentPos();
-        Fragment f = fadapter.getActiveFragment(pager, p);
+        int p = adapter.getLogsFragmentPos();
+        Fragment f = adapter.getActiveFragment(pager, p);
         if (f instanceof LogsFragment) {
             ((LogsFragment) f).setPlanId(planId);
         }
@@ -490,14 +501,14 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
     @Override
     public void onPageSelected(final int position) {
         Log.d(TAG, "onPageSelected(", position, ")");
-        if (position == fadapter.getLogsFragmentPos()) {
-            Fragment f = fadapter.getActiveFragment(pager,
-                    fadapter.getLogsFragmentPos());
+        if (position == adapter.getLogsFragmentPos()) {
+            Fragment f = adapter.getActiveFragment(pager,
+                    adapter.getLogsFragmentPos());
             if (f instanceof LogsFragment) {
                 ((LogsFragment) f).setAdapter(false);
             }
         } else {
-            Fragment f = fadapter.getActiveFragment(pager, position);
+            Fragment f = adapter.getActiveFragment(pager, position);
             if (f instanceof PlansFragment) {
                 ((PlansFragment) f).requery(false);
             }
@@ -565,8 +576,8 @@ public final class PlansActivity extends AppCompatActivity implements OnPageChan
                 case MSG_BACKGROUND_STOP_MATCHER:
                     plansActivity.setInProgress(-1);
                     Objects.requireNonNull(plansActivity.getSupportActionBar()).setSubtitle(null);
-                    Fragment f = plansActivity.fadapter.getActiveFragment(plansActivity.pager,
-                            plansActivity.fadapter.getHomeFragmentPos());
+                    Fragment f = plansActivity.adapter.getActiveFragment(plansActivity.pager,
+                            plansActivity.adapter.getHomeFragmentPos());
                     if (f instanceof PlansFragment) {
                         ((PlansFragment) f).requery(true);
                     }

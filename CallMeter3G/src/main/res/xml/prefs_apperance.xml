@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--    Copyright (C) 2009-2015 Felix Bechstein -->
+<!--    Copyright (C) 2020 Muntashir Al-Islam -->
 <!--
 		This file is part of Call Meter 3G. This program is free software; you
 		can redistribute it and/or modify it under the terms of the GNU
@@ -18,7 +19,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-            android:defaultValue="light"
+            android:defaultValue="system"
             android:entries="@array/themes"
             android:entryValues="@array/themes_values"
             android:key="theme"
